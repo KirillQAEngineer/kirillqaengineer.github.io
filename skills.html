@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skills</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+      integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+      integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <style>
+      .rounded-img {
+        width: 50%;
+        border-radius: 10%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        padding: 0.4em;
+        margin-bottom: 0.4em;
+      }
+    </style>
+    <style>
+      body {
+        background-color: rgb(36, 36, 41);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container">
+        <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link fw-bold"
+                aria-current="page"
+                href="index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active fw-bold" href="skills.html">Skills</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: #050505;
+        color: #f2f2f2;
+        font-family: "Inter Tight", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        position: relative;
+        min-height: 1vh;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 30% 60%,
+          #0d0d1a 0%,
+          #050505 70%
+        );
+      }
+      .hero-grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        pointer-events: none;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        padding: clamp(2rem, 5vw, 8rem);
+        padding-bottom: clamp(3rem, 6vw, 6rem);
+      }
+      .hero-label {
+        color: #888;
+        font-size: 0.8rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+      }
+      .hero-title {
+        font-size: clamp(3rem, 10vw, 10rem);
+        font-weight: 900;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+        color: #f2f2f2;
+        opacity: 0;
+        transform: translateY(60px);
+        animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s forwards;
+      }
+      .hero-title span {
+        color: #555;
+      }
+      .hero-hint {
+        margin-top: 3rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        opacity: 0;
+        animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s forwards;
+      }
+      .hero-hint-line {
+        width: 64px;
+        height: 1px;
+        background: #333;
+      }
+      .hero-hint p {
+        color: #555;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+      }
+
+      /* ── SKILLS GRID ── */
+      .skills-section {
+        padding: clamp(3rem, 8vw, 8rem) clamp(1rem, 4vw, 5rem);
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      @media (max-width: 768px) {
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+        .col-span-2 {
+          grid-column: span 1;
+        }
+      }
+      .col-span-2 {
+        grid-column: span 2;
+      }
+
+      .monolith {
+        position: relative;
+        overflow: hidden;
+        min-height: 380px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+        background: #111111;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: background 0.5s ease;
+        cursor: default;
+        opacity: 0;
+        transform: translateY(80px);
+        transition:
+          background 0.5s ease,
+          opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+          transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+          border-color 0.5s ease;
+      }
+      .monolith.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .monolith:hover {
+        background: #161616;
+        border-color: rgba(61, 90, 254, 0.15);
+      }
+
+      .monolith-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .monolith-bar {
+        width: 2px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        transition:
+          height 0.5s ease,
+          background 0.5s ease;
+      }
+      .monolith:hover .monolith-bar {
+        height: 48px;
+        background: #3d5afe;
+      }
+      .monolith-num {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.05);
+        line-height: 1;
+        transition: color 0.5s ease;
+      }
+      .monolith:hover .monolith-num {
+        color: rgba(61, 90, 254, 0.35);
+      }
+
+      .monolith-bottom {
+        margin-top: auto;
+      }
+      .monolith-desc {
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.65;
+        margin-bottom: 1.25rem;
+        max-width: 480px;
+        transition: color 0.5s ease;
+      }
+      .monolith:hover .monolith-desc {
+        color: #999;
+      }
+      .monolith-title {
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
+        font-weight: 700;
+        color: #f2f2f2;
+        letter-spacing: -0.02em;
+      }
+
+      /* ── MARQUEE ── */
+      .marquee-section {
+        overflow: hidden;
+        padding: 3.5rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 30s linear infinite;
+      }
+      .marquee-item {
+        margin: 0 2.5rem;
+        font-size: clamp(1rem, 2vw, 1.5rem);
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.15);
+        letter-spacing: 0.05em;
+      }
+
+      /* ── CTA FOOTER ── */
+      .cta {
+        background: #f2f2f2;
+        min-height: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(4rem, 8vw, 10rem) 2rem;
+        text-align: center;
+      }
+      .cta-inner {
+        max-width: 680px;
+      }
+      .cta h2 {
+        font-size: clamp(2.5rem, 6vw, 2rem);
+        font-weight: 700;
+        color: #050505;
+        letter-spacing: -0.04em;
+        line-height: 0.9;
+        margin-bottom: 2rem;
+      }
+      .cta p {
+        color: #555;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: #050505;
+        color: #f2f2f2;
+        font-family: "Inter Tight", sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        padding: 1rem 2.25rem;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+          background 0.3s ease,
+          gap 0.3s ease;
+      }
+      .cta-btn:hover {
+        background: #111;
+        gap: 1.25rem;
+      }
+      .cta-btn svg {
+        transition: transform 0.3s ease;
+      }
+      .cta-btn:hover svg {
+        transform: translateX(4px);
+      }
+
+      /* ── ANIMATIONS ── */
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grain"></div>
+      <div class="hero-content">
+        <p class="hero-label">Профессиональные навыки</p>
+        <h1 class="hero-title">
+          Архитектура<br />
+          <span>компетенций</span>
+        </h1>
+        <div class="hero-hint">
+          <div class="hero-hint-line"></div>
+          <p>Прокрутите вниз для исследования</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS GRID -->
+    <section class="skills-section">
+      <div class="skills-grid">
+        <div class="monolith col-span-2">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">01</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Тестирование Web/Mobile приложений.</br>
+              Тестирование мобильных приложений на iOS и Android с использованием AndroidStudio.</br>
+              Выполнение функциональное, интеграционное, системное и регрессионное тестирования.</br>
+            </p>
+            <h2 class="monolith-title">Frontend-Тестирование</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">02</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Работа с базами данных SQL/NoSQL и Redis.</br>
+              DevTools и Postman для проверки REST API и анализа сетевого трафика.</br>
+              Мониторинг и анализ логов Grafana и Kibana, взаимодействие с Kafka.</br>
+            </p>
+            <h2 class="monolith-title">Backend & API</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">03</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Тестирование пользовательских интерфейсов с фокусом на
+              юзабилити, доступность и эстетику. Прототипирование в Figma.
+            </p>
+            <h2 class="monolith-title">UX/UI Дизайн</h2>
+          </div>
+        </div>
+
+        <div class="monolith col-span-2">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">04</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Работа с окружениями Kubernetes и OpenShift.</br>
+              Работа в микросервисной архитектуре, включая работу с микросервисами и микрофронтами. 
+            </p>
+            <h2 class="monolith-title">Архитектура</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">05</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Test IT для ведения тестовой документации, Confluence и Notion — для работы с требованиями и управления знаниями.</br> 
+              Работа с большим объемом документации.</br>
+              Проведение демонстраций для клиентов.</br>
+              Адаптация новых членов команды.
+            </p>
+            <h2 class="monolith-title">Ведение тестовой документации</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">06</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Agile/Scrum/Kanban методологии, управление техническим долгом, онбоардинг
+              новых членов команды и test-case review процессы.
+            </p>
+            <h2 class="monolith-title">Управление проектами</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">07</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Работа с IDE VSCode, IntelliJ IDEA во время повышения квалификации внутри команды для автоматизации тестирования на Java/Selenium
+            </p>
+            <h2 class="monolith-title">Языки программирования/Фреймворки</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-section">
+      <div class="marquee-track">
+        <span class="marquee-item">DevTools</span>
+        <span class="marquee-item">Postman</span>
+        <span class="marquee-item">Jira</span>
+        <span class="marquee-item">Zephyr</span>
+        <span class="marquee-item">Figma</span>
+        <span class="marquee-item">VSCode</span>
+        <span class="marquee-item">IntelliJ IDEA</span>
+        <span class="marquee-item">AndroidStudio</span>
+        <span class="marquee-item">Java</span>
+        <span class="marquee-item">Selenium</span>
+        <span class="marquee-item">Kafka</span>
+        <span class="marquee-item">Kubernetes</span>
+        <span class="marquee-item">Git</span>
+        <span class="marquee-item">PowerShell</span>
+        <span class="marquee-item">SQL</span>
+        <span class="marquee-item">NoSQL</span>
+        <span class="marquee-item">Redis</span>
+        <span class="marquee-item">Notepad++</span>
+        <span class="marquee-item">REST API</span>
+        <span class="marquee-item">DBeaver</span>
+        <span class="marquee-item">iOS</span>
+        <span class="marquee-item">Android</span>
+        <span class="marquee-item">Confluence</span>
+        <span class="marquee-item">Notion</span>
+        <span class="marquee-item">Grafana</span>
+        <span class="marquee-item">Kibana</span>
+        <span class="marquee-item">OpenShift</span>
+        <span class="marquee-item">Scrum/Agile</span>
+        <span class="marquee-item">Kanban/Agile</span>
+        <!-- duplicate for seamless loop -->
+      </div>
+    </div>
+
+    <!-- CTA FOOTER -->
+    <section class="cta">
+      <div class="cta-inner">
+        <h2>Открыт для сотрудничества и новых проектов.</h2>
+        <a href="mailto:gishko.kirill96@gmail.com" class="cta-btn">
+          Связаться со мной
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <script>
+      // Scroll reveal for monoliths
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => entry.target.classList.add("visible"), i * 80);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(".monolith")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
+`;

@@ -1,0 +1,450 @@
+export default function SkillsHTML() {
+  const html = `<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Навыки</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #050505;
+      color: #F2F2F2;
+      font-family: 'Inter Tight', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, #0d0d1a 0%, #050505 70%);
+    }
+    .hero-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      padding: clamp(2rem, 5vw, 8rem);
+      padding-bottom: clamp(3rem, 6vw, 6rem);
+    }
+    .hero-label {
+      color: #888;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s cubic-bezier(0.2,0.8,0.2,1) 0.2s forwards;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 10vw, 10rem);
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+      color: #F2F2F2;
+      opacity: 0;
+      transform: translateY(60px);
+      animation: fadeUp 1.2s cubic-bezier(0.2,0.8,0.2,1) 0.1s forwards;
+    }
+    .hero-title span { color: #555; }
+    .hero-hint {
+      margin-top: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(0.2,0.8,0.2,1) 0.9s forwards;
+    }
+    .hero-hint-line { width: 64px; height: 1px; background: #333; }
+    .hero-hint p { color: #555; font-size: 0.85rem; letter-spacing: 0.1em; }
+
+    /* ── SKILLS GRID ── */
+    .skills-section {
+      padding: clamp(3rem, 8vw, 8rem) clamp(1rem, 4vw, 5rem);
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .col-span-2 { grid-column: span 1; }
+    }
+    .col-span-2 { grid-column: span 2; }
+
+    .monolith {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      background: #111111;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.5s ease;
+      cursor: default;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: background 0.5s ease, opacity 0.9s cubic-bezier(0.2,0.8,0.2,1), transform 0.9s cubic-bezier(0.2,0.8,0.2,1), border-color 0.5s ease;
+    }
+    .monolith.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .monolith:hover { background: #161616; border-color: rgba(61,90,254,0.15); }
+
+    .monolith-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .monolith-bar {
+      width: 2px;
+      height: 24px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+      transition: height 0.5s ease, background 0.5s ease;
+    }
+    .monolith:hover .monolith-bar {
+      height: 48px;
+      background: #3D5AFE;
+    }
+    .monolith-num {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.05);
+      line-height: 1;
+      transition: color 0.5s ease;
+    }
+    .monolith:hover .monolith-num { color: rgba(61,90,254,0.35); }
+
+    .monolith-bottom { margin-top: auto; }
+    .monolith-desc {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+      max-width: 480px;
+      transition: color 0.5s ease;
+    }
+    .monolith:hover .monolith-desc { color: #999; }
+    .monolith-title {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 700;
+      color: #F2F2F2;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-section {
+      overflow: hidden;
+      padding: 3.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+    }
+    .marquee-item {
+      margin: 0 2.5rem;
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 500;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CTA FOOTER ── */
+    .cta {
+      background: #F2F2F2;
+      min-height: 65vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(4rem, 8vw, 10rem) 2rem;
+      text-align: center;
+    }
+    .cta-inner { max-width: 680px; }
+    .cta h2 {
+      font-size: clamp(2.5rem, 6vw, 6rem);
+      font-weight: 800;
+      color: #050505;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      margin-bottom: 2rem;
+    }
+    .cta p {
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #050505;
+      color: #F2F2F2;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 1rem 2.25rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease, gap 0.3s ease;
+    }
+    .cta-btn:hover { background: #111; gap: 1.25rem; }
+    .cta-btn svg { transition: transform 0.3s ease; }
+    .cta-btn:hover svg { transform: translateX(4px); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-content">
+      <p class="hero-label">Профессиональные навыки</p>
+      <h1 class="hero-title">
+        Архитектура<br>
+        <span>компетенций</span>
+      </h1>
+      <div class="hero-hint">
+        <div class="hero-hint-line"></div>
+        <p>Прокрутите вниз для исследования</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS GRID -->
+  <section class="skills-section">
+    <div class="skills-grid">
+
+      <div class="monolith col-span-2">
+        <div class="monolith-top">
+          <div class="monolith-bar"></div>
+          <span class="monolith-num">01</span>
+        </div>
+        <div class="monolith-bottom">
+          <p class="monolith-desc">Создание высокопроизводительных интерфейсов с React, TypeScript и современными CSS-технологиями. Pixel-perfect реализация дизайн-систем и компонентных библиотек.</p>
+          <h2 class="monolith-title">Frontend-разработка</h2>
+        </div>
+      </div>
+
+      <div class="monolith">
+        <div class="monolith-top">
+          <div class="monolith-bar"></div>
+          <span class="monolith-num">02</span>
+        </div>
+        <div class="monolith-bottom">
+          <p class="monolith-desc">Проектирование масштабируемых серверных архитектур. REST, GraphQL, микросервисы и работа с базами данных.</p>
+          <h2 class="monolith-title">Backend & API</h2>
+        </div>
+      </div>
+
+      <div class="monolith">
+        <div class="monolith-top">
+          <div class="monolith-bar"></div>
+          <span class="monolith-num">03</span>
+        </div>
+        <div class="monolith-bottom">
+          <p class="monolith-desc">Проектирование пользовательских интерфейсов с фокусом на юзабилити, доступность и эстетику. Прототипирование в Figma.</p>
+          <h2 class="monolith-title">UX/UI Дизайн</h2>
+        </div>
+      </div>
+
+      <div class="monolith col-span-2">
+        <div class="monolith-top">
+          <div class="monolith-bar"></div>
+          <span class="monolith-num">04</span>
+        </div>
+        <div class="monolith-bottom">
+          <p class="monolith-desc">Настройка CI/CD пайплайнов, контейнеризация с Docker, оркестрация через Kubernetes. Мониторинг и автоматизация.</p>
+          <h2 class="monolith-title">DevOps & Инфраструктура</h2>
+        </div>
+      </div>
+
+      <div class="monolith">
+        <div class="monolith-top">
+          <div class="monolith-bar"></div>
+          <span class="monolith-num">05</span>
+        </div>
+        <div class="monolith-bottom">
+          <p class="monolith-desc">Проектирование отказоустойчивых распределённых систем. Event-driven архитектура, CQRS и domain-driven design.</p>
+          <h2 class="monolith-title">Архитектура систем</h2>
+        </div>
+      </div>
+
+      <div class="monolith">
+        <div class="monolith-top">
+          <div class="monolith-bar"></div>
+          <span class="monolith-num">06</span>
+        </div>
+        <div class="monolith-bottom">
+          <p class="monolith-desc">Agile/Scrum методологии, управление техническим долгом, менторство команд и code review процессы.</p>
+          <h2 class="monolith-title">Управление проектами</h2>
+        </div>
+      </div>
+
+      <div class="monolith">
+        <div class="monolith-top">
+          <div class="monolith-bar"></div>
+          <span class="monolith-num">07</span>
+        </div>
+        <div class="monolith-bottom">
+          <p class="monolith-desc">Внедрение ML-моделей в продуктовые решения. Работа с Python, TensorFlow и интеграция AI-сервисов через API.</p>
+          <h2 class="monolith-title">Машинное обучение</h2>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-item">React</span>
+      <span class="marquee-item">TypeScript</span>
+      <span class="marquee-item">Node.js</span>
+      <span class="marquee-item">Python</span>
+      <span class="marquee-item">PostgreSQL</span>
+      <span class="marquee-item">Docker</span>
+      <span class="marquee-item">Figma</span>
+      <span class="marquee-item">AWS</span>
+      <span class="marquee-item">GraphQL</span>
+      <span class="marquee-item">Redis</span>
+      <span class="marquee-item">Kubernetes</span>
+      <span class="marquee-item">Git</span>
+      <span class="marquee-item">Tailwind CSS</span>
+      <span class="marquee-item">Next.js</span>
+      <span class="marquee-item">MongoDB</span>
+      <span class="marquee-item">Linux</span>
+      <span class="marquee-item">CI/CD</span>
+      <span class="marquee-item">REST API</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">React</span>
+      <span class="marquee-item">TypeScript</span>
+      <span class="marquee-item">Node.js</span>
+      <span class="marquee-item">Python</span>
+      <span class="marquee-item">PostgreSQL</span>
+      <span class="marquee-item">Docker</span>
+      <span class="marquee-item">Figma</span>
+      <span class="marquee-item">AWS</span>
+      <span class="marquee-item">GraphQL</span>
+      <span class="marquee-item">Redis</span>
+      <span class="marquee-item">Kubernetes</span>
+      <span class="marquee-item">Git</span>
+      <span class="marquee-item">Tailwind CSS</span>
+      <span class="marquee-item">Next.js</span>
+      <span class="marquee-item">MongoDB</span>
+      <span class="marquee-item">Linux</span>
+      <span class="marquee-item">CI/CD</span>
+      <span class="marquee-item">REST API</span>
+    </div>
+  </div>
+
+  <!-- CTA FOOTER -->
+  <section class="cta">
+    <div class="cta-inner">
+      <h2>Начнём<br>разговор?</h2>
+      <p>Открыт для сотрудничества и новых проектов. Давайте обсудим, как мои навыки могут усилить вашу команду.</p>
+      <a href="mailto:you@example.com" class="cta-btn">
+        Связаться со мной
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <script>
+    // Scroll reveal for monoliths
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.monolith').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>`;
+
+  return (
+    <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center p-6">
+      <div className="max-w-2xl w-full text-center mb-8">
+        <h1 className="text-white text-2xl font-bold mb-3" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+          Готовый HTML для копипаста
+        </h1>
+        <p className="text-[#888] text-sm mb-6">
+          Скопируй весь код ниже и вставь в файл <code className="bg-[#111] px-2 py-0.5 rounded text-[#3D5AFE]">.html</code> на своём сайте
+        </p>
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(html);
+            const btn = document.getElementById('copy-btn');
+            btn.textContent = '✓ Скопировано!';
+            btn.style.background = '#1a2a6c';
+            setTimeout(() => {
+              btn.textContent = 'Скопировать всё';
+              btn.style.background = '#3D5AFE';
+            }, 2000);
+          }}
+          id="copy-btn"
+          style={{ background: '#3D5AFE', fontFamily: "'Inter Tight', sans-serif" }}
+          className="text-white font-semibold px-6 py-3 rounded-none text-sm tracking-wide transition-all mb-6"
+        >
+          Скопировать всё
+        </button>
+      </div>
+
+      <div className="w-full max-w-4xl">
+        <pre
+          className="bg-[#0d0d0d] border border-[#222] text-[#aaa] text-xs leading-relaxed overflow-auto rounded-sm p-6"
+          style={{ maxHeight: "70vh", fontFamily: "monospace" }}
+        >
+          {html}
+        </pre>
+      </div>
+    </div>
+  );
+}
