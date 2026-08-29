@@ -22,120 +22,451 @@
       crossorigin="anonymous"
     ></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
     <style>
+      :root {
+        --bg: #242429;
+        --panel: #111114;
+        --panel-hover: #17171b;
+        --text: #f2f2f2;
+        --muted: #8c8c94;
+        --dim: #55555e;
+        --line: rgba(255,255,255,.08);
+        --accent: #3d5afe;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
       body {
         margin: 0;
-        background-color: rgb(36, 36, 41);
-        color: #fff;
-        font-family: Arial, sans-serif;
+        font-family: "Inter Tight", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        overflow-x: hidden;
       }
 
-      .rounded-img {
-        width: min(50%, 320px);
-        border-radius: 10%;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-        padding: 0.4em;
-        margin-bottom: 1rem;
-      }
+      a { text-decoration: none; }
 
       .hero-wrap {
-        padding: 2rem 1rem 3rem;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(2rem, 4vw, 3.5rem) 1.25rem;
+        position: relative;
+      }
+
+      .hero-wrap::before {
+        content: "";
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(61,90,254,.12), transparent 68%);
+        filter: blur(10px);
+        pointer-events: none;
       }
 
       .hero-card {
-        max-width: 720px;
-        margin: 0 auto;
+        width: min(760px, 100%);
         text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .rounded-img {
+        width: min(240px, 50vw);
+        aspect-ratio: 4/5.4;
+        object-position: top;
+        object-fit: cover;
+        border-radius: 24px;
+        border: 1px solid rgba(255,255,255,.14);
+        box-shadow: 0 20px 70px rgba(0,0,0,.35);
+        padding: .35rem;
+        margin-bottom: 1.5rem;
+        background: #19191d;
       }
 
       .hero-card h1 {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+        margin: 0 0 1rem;
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
+        line-height: .95;
+        letter-spacing: -.015em;
+        font-weight: 300;
       }
 
+      .hero-card h1 strong { font-weight: 800; }
+
       .hero-text {
-        color: #d7d7d7;
+        color: #b7b7bf;
         line-height: 1.7;
-        margin-bottom: 1.5rem;
+        font-size: clamp(1rem, 2vw, 1.15rem);
+        margin: 0 auto 1.75rem;
+        max-width: 520px;
       }
 
       .contact-buttons {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.75rem;
         justify-content: center;
+        gap: .65rem;
       }
 
       .contact-buttons .btn {
-        min-width: 120px;
+        min-width: 118px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.1);
+        background: transparent;
+        color: #eee;
+        padding: .7rem 1.2rem;
+        transition: .25s ease;
       }
 
-      @media (max-width: 576px) {
+      .contact-buttons .btn:hover {
+        background: #f2f2f2;
+        color: #111;
+        transform: translateY(-2px);
+      }
+
+      .hero {
+        position: relative;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border-top: 1px solid var(--line);
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 78% 35%, rgba(61,90,254,.10), transparent 28%),
+          linear-gradient(180deg, #242429 0%, #202025 100%);
+      }
+
+      .hero-grain {
+        position: absolute;
+        inset: 0;
+        opacity: .035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+      }
+
+      .hero-title {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: clamp(1.8rem, 4vw, 3.2rem);
+        font-weight: 900;
+        line-height: .95;
+        letter-spacing: -.06em;
+        color: var(--text);
+        opacity: 0;
+        transform: translateY(60px);
+        animation: fadeUp 1.2s cubic-bezier(.2,.8,.2,1) .1s forwards;
+      }
+
+      .hero-title span {
+        display: block;
+        color: #575760;
+      }
+
+      .hero-hint {
+        margin-top: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        opacity: 0;
+        animation: fadeUp 1s cubic-bezier(.2,.8,.2,1) .8s forwards;
+      }
+
+      .hero-hint-line {
+        width: 80px;
+        height: 1px;
+        background: var(--accent);
+        opacity: .65;
+      }
+
+      .marquee-section {
+        overflow: hidden;
+        padding: 1.6rem 0;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .marquee-track {
+        display: flex;
+        width: max-content;
+        white-space: nowrap;
+        animation: marquee 38s linear infinite;
+      }
+
+      .marquee-item {
+        margin: 0 2rem;
+        font-size: clamp(.9rem, 1.7vw, 1.2rem);
+        font-weight: 500;
+        color: rgba(255,255,255,.18);
+        letter-spacing: .06em;
+      }
+
+      .skills-section {
+        padding: clamp(3rem, 7vw, 7rem) clamp(1rem, 4vw, 5rem);
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .col-span-2 { grid-column: span 2; }
+
+      .monolith {
+        position: relative;
+        overflow: hidden;
+        min-height: 330px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: clamp(1.4rem, 3vw, 2.5rem);
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        opacity: 0;
+        transform: translateY(55px);
+        transition:
+          background .35s ease,
+          opacity .8s cubic-bezier(.2,.8,.2,1),
+          transform .8s cubic-bezier(.2,.8,.2,1),
+          border-color .35s ease,
+          box-shadow .35s ease;
+      }
+
+      .monolith.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .monolith::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .45s ease;
+      }
+
+      .monolith:hover {
+        background: var(--panel-hover);
+        border-color: rgba(61,90,254,.25);
+        box-shadow: 0 18px 55px rgba(0,0,0,.18);
+      }
+
+      .monolith:hover::after { transform: scaleX(1); }
+
+      .monolith-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .monolith-bar {
+        width: 2px;
+        height: 24px;
+        background: rgba(255,255,255,.12);
+        border-radius: 999px;
+        transition: .4s ease;
+      }
+
+      .monolith:hover .monolith-bar {
+        height: 48px;
+        background: var(--accent);
+      }
+
+      .monolith-num {
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        font-weight: 300;
+        color: rgba(255,255,255,.05);
+        line-height: 1;
+        transition: .4s ease;
+      }
+
+      .monolith:hover .monolith-num { color: rgba(61,90,254,.32); }
+
+      .monolith-bottom { margin-top: auto; }
+
+      .monolith-desc {
+        color: #6f6f78;
+        font-size: 1rem;
+        line-height: 1.65;
+        margin: 0 0 1.2rem;
+        max-width: 560px;
+        transition: color .35s ease;
+      }
+
+      .monolith:hover .monolith-desc { color: #a2a2aa; }
+
+      .monolith-title {
+        font-size: clamp(1.15rem, 2vw, 1.45rem);
+        font-weight: 700;
+        color: #f2f2f2;
+        letter-spacing: -.02em;
+        margin: 0;
+      }
+
+      .cta {
+        background: #202025;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(1.5rem, 3vw, 2.5rem) 1.5rem;
+        text-align: center;
+        border-top: 1px solid var(--line);
+      }
+
+      .cta-inner { max-width: 700px; }
+
+      .cta h2 {
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+        font-weight: 500;
+        color: #f2f2f2;
+        letter-spacing: -.045em;
+        line-height: 1.1;
+        margin: 0 0 1rem;
+      }
+
+      .cta p {
+        color: #aaa;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2.2rem;
+      }
+
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: .75rem;
+        background: transparent;
+        color: #eee;
+        font-family: "Inter Tight", sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: .02em;
+        padding: .7rem 1.2rem;
+        border: 1px solid rgba(255,255,255,.1);
+        border-radius: 999px;
+        cursor: pointer;
+        transition: .25s ease;
+      }
+
+      .cta-btn:hover {
+        background: #f2f2f2;
+        color: #111;
+        gap: 1.15rem;
+        transform: translateY(-2px);
+      }
+
+      .cta-btn svg { transition: transform .3s ease; }
+
+      @keyframes fadeUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      @media (max-width: 900px) {
+        .hero { min-height: 0; }
+        .skills-grid { grid-template-columns: repeat(2, 1fr); }
+        .col-span-2 { grid-column: span 2; }
+      }
+
+      @media (max-width: 650px) {
         .hero-wrap {
-          padding: 1.25rem 0.75rem 2rem;
+          min-height: auto;
+          padding: 2.5rem 1rem 3rem;
         }
 
-        .rounded-img {
-          width: min(70%, 180px);
-        }
-
-        .hero-card h1 {
-          font-size: 2rem;
-        }
-
-        .hero-text {
-          font-size: 0.98rem;
-        }
+        .rounded-img { width: min(220px, 55vw); }
 
         .contact-buttons {
-          flex-direction: column;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
         }
 
-        .contact-buttons .btn {
-          width: 100%;
+        .contact-buttons .btn { width: 100%; }
+
+        .hero { min-height: 0; }
+
+        .hero-content { padding: 2rem 1.25rem; }
+
+        .hero-title {
+          font-size: clamp(2rem, 10vw, 3rem);
+          line-height: .9;
         }
+
+        .skills-section { padding: 2.5rem .8rem; }
+
+        .skills-grid { grid-template-columns: 1fr; gap: .8rem; }
+
+        .col-span-2 { grid-column: span 1; }
+
+        .monolith {
+          min-height: 280px;
+          padding: 1.25rem;
+        }
+
+        .marquee-item {
+          margin: 0 1rem;
+          font-size: .85rem;
+        }
+
+        .cta {
+          min-height: 0;
+          padding: 2rem 1.25rem;
+        }
+
+        .cta h2 { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+      }
+
+      @media (max-width: 420px) {
+        .contact-buttons { grid-template-columns: 1fr; }
       }
     </style>
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a
-                class="nav-link active fw-bold"
-                aria-current="page"
-                href="index.html"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-bold" href="aboutme.html">Skills</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
     <main class="hero-wrap">
       <div class="hero-card">
         <img class="rounded-img" src="img.jpg" alt="Kirill" />
@@ -177,5 +508,237 @@
         </div>
       </div>
     </main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grain"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Архитектура
+          <span>компетенций</span>
+        </h1>
+        <div class="hero-hint">
+          <div class="hero-hint-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-section">
+      <div class="marquee-track">
+        <span class="marquee-item">DevTools</span>
+        <span class="marquee-item">Postman</span>
+        <span class="marquee-item">Jira</span>
+        <span class="marquee-item">Zephyr</span>
+        <span class="marquee-item">Figma</span>
+        <span class="marquee-item">VSCode</span>
+        <span class="marquee-item">IntelliJ IDEA</span>
+        <span class="marquee-item">AndroidStudio</span>
+        <span class="marquee-item">Java</span>
+        <span class="marquee-item">Selenium</span>
+        <span class="marquee-item">Kafka</span>
+        <span class="marquee-item">Kubernetes</span>
+        <span class="marquee-item">Git</span>
+        <span class="marquee-item">PowerShell</span>
+        <span class="marquee-item">SQL</span>
+        <span class="marquee-item">NoSQL</span>
+        <span class="marquee-item">Redis</span>
+        <span class="marquee-item">Notepad++</span>
+        <span class="marquee-item">REST API</span>
+        <span class="marquee-item">DBeaver</span>
+        <span class="marquee-item">iOS</span>
+        <span class="marquee-item">Android</span>
+        <span class="marquee-item">Confluence</span>
+        <span class="marquee-item">Notion</span>
+        <span class="marquee-item">Grafana</span>
+        <span class="marquee-item">Kibana</span>
+        <span class="marquee-item">OpenShift</span>
+        <span class="marquee-item">Scrum/Agile</span>
+        <span class="marquee-item">Kanban/Agile</span>
+        <span class="marquee-item">DevTools</span>
+        <span class="marquee-item">Postman</span>
+        <span class="marquee-item">Jira</span>
+        <span class="marquee-item">Zephyr</span>
+        <span class="marquee-item">Figma</span>
+        <span class="marquee-item">VSCode</span>
+        <span class="marquee-item">IntelliJ IDEA</span>
+        <span class="marquee-item">AndroidStudio</span>
+        <span class="marquee-item">Java</span>
+        <span class="marquee-item">Selenium</span>
+        <span class="marquee-item">Kafka</span>
+        <span class="marquee-item">Kubernetes</span>
+        <span class="marquee-item">Git</span>
+        <span class="marquee-item">PowerShell</span>
+        <span class="marquee-item">SQL</span>
+        <span class="marquee-item">NoSQL</span>
+        <span class="marquee-item">Redis</span>
+        <span class="marquee-item">Notepad++</span>
+        <span class="marquee-item">REST API</span>
+        <span class="marquee-item">DBeaver</span>
+        <span class="marquee-item">iOS</span>
+        <span class="marquee-item">Android</span>
+        <span class="marquee-item">Confluence</span>
+        <span class="marquee-item">Notion</span>
+        <span class="marquee-item">Grafana</span>
+        <span class="marquee-item">Kibana</span>
+        <span class="marquee-item">OpenShift</span>
+        <span class="marquee-item">Scrum/Agile</span>
+        <span class="marquee-item">Kanban/Agile</span>
+      </div>
+    </div>
+
+    <!-- SKILLS GRID -->
+    <section class="skills-section">
+      <div class="skills-grid">
+        <div class="monolith col-span-2">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">01</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Тестирование Web/Mobile приложений.<br />
+              Тестирование мобильных приложений на iOS и Android с
+              использованием AndroidStudio.<br />
+              Выполнение функционального, интеграционного, системного и
+              регрессионного тестирования.
+            </p>
+            <h2 class="monolith-title">Frontend-Тестирование</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">02</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Работа с базами данных SQL/NoSQL и Redis.<br />
+              DevTools и Postman для проверки REST API и анализа сетевого
+              трафика.<br />
+              Мониторинг и анализ логов Grafana и Kibana, взаимодействие с
+              Kafka.
+            </p>
+            <h2 class="monolith-title">Backend & API</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">03</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Тестирование пользовательских интерфейсов с фокусом на юзабилити,
+              доступность и эстетику. Прототипирование в Figma.
+            </p>
+            <h2 class="monolith-title">UX/UI Дизайн</h2>
+          </div>
+        </div>
+
+        <div class="monolith col-span-2">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">04</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Работа с окружениями Kubernetes и OpenShift.<br />
+              Работа в микросервисной архитектуре, включая работу с
+              микросервисами и микрофронтами.
+            </p>
+            <h2 class="monolith-title">Архитектура</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">05</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Test IT для ведения тестовой документации, Confluence и Notion —
+              для работы с требованиями и управления знаниями.<br />
+              Работа с большим объемом документации.<br />
+              Проведение демонстраций для клиентов.<br />
+              Адаптация новых членов команды.
+            </p>
+            <h2 class="monolith-title">Ведение тестовой документации</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">06</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Agile/Scrum/Kanban методологии, управление техническим долгом,
+              онбоардинг новых членов команды и test-case review процессы.
+            </p>
+            <h2 class="monolith-title">Управление проектами</h2>
+          </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">07</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc">
+              Работа с IDE VSCode, IntelliJ IDEA во время повышения квалификации
+              внутри команды для автоматизации тестирования на Java/Selenium.
+            </p>
+            <h2 class="monolith-title">Языки программирования/Фреймворки</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FOOTER -->
+    <section class="cta">
+      <div class="cta-inner">
+        <h2>Открыт для сотрудничества</h2>
+        <a href="mailto:gishko.kirill96@gmail.com" class="cta-btn" aria-label="Связаться с Кириллом по электронной почте">
+          Связаться со мной
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => entry.target.classList.add("visible"), i * 80);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(".monolith")
+        .forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>
