@@ -43,7 +43,7 @@
         --muted: #8c8c94;
         --dim: #55555e;
         --line: rgba(255,255,255,.08);
-        --accent: #3d5afe;
+        --accent: #f2f2f2;
       }
 
       * { box-sizing: border-box; }
@@ -60,6 +60,39 @@
 
       a { text-decoration: none; }
 
+      .lang-toggle {
+        position: fixed;
+        top: 1.25rem;
+        right: 1.25rem;
+        z-index: 50;
+        display: inline-flex;
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 999px;
+        background: rgba(17,17,20,.7);
+        backdrop-filter: blur(6px);
+        padding: .25rem;
+        gap: .15rem;
+      }
+
+      .lang-toggle button {
+        border: none;
+        background: transparent;
+        color: #8c8c94;
+        font-family: "Inter Tight", sans-serif;
+        font-size: .8rem;
+        font-weight: 600;
+        letter-spacing: .04em;
+        padding: .4rem .75rem;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: .2s ease;
+      }
+
+      .lang-toggle button.active {
+        background: #f2f2f2;
+        color: #111;
+      }
+
       .hero-wrap {
         min-height: 0;
         display: flex;
@@ -75,7 +108,7 @@
         width: 520px;
         height: 520px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(61,90,254,.12), transparent 68%);
+        background: radial-gradient(circle, rgba(255,255,255,.08), transparent 68%);
         filter: blur(10px);
         pointer-events: none;
       }
@@ -101,7 +134,7 @@
       }
 
       .hero-card h1 {
-        margin: 0 0 1rem;
+        margin: 0 0 .4rem;
         font-size: clamp(2rem, 4.5vw, 3.4rem);
         line-height: .95;
         letter-spacing: -.015em;
@@ -109,6 +142,14 @@
       }
 
       .hero-card h1 strong { font-weight: 800; }
+
+      .hero-role {
+        margin: 0 0 1rem;
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        font-weight: 700;
+        letter-spacing: -.01em;
+        color: var(--muted);
+      }
 
       .hero-text {
         color: #b7b7bf;
@@ -154,7 +195,7 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle at 78% 35%, rgba(61,90,254,.10), transparent 28%),
+          radial-gradient(circle at 78% 35%, rgba(255,255,255,.06), transparent 28%),
           linear-gradient(180deg, #242429 0%, #202025 100%);
       }
 
@@ -177,10 +218,10 @@
         max-width: 700px;
         margin: 0 auto;
         text-align: center;
-        font-size: clamp(1.8rem, 4vw, 3.2rem);
+        font-size: clamp(1.5rem, 3.2vw, 2.6rem);
         font-weight: 900;
         line-height: .95;
-        letter-spacing: -.06em;
+        letter-spacing: -.015em;
         color: var(--text);
         opacity: 0;
         transform: translateY(60px);
@@ -244,6 +285,7 @@
       }
 
       .col-span-2 { grid-column: span 2; }
+      .col-span-3 { grid-column: span 3; }
 
       .monolith {
         position: relative;
@@ -286,7 +328,7 @@
 
       .monolith:hover {
         background: var(--panel-hover);
-        border-color: rgba(61,90,254,.25);
+        border-color: rgba(255,255,255,.25);
         box-shadow: 0 18px 55px rgba(0,0,0,.18);
       }
 
@@ -319,7 +361,7 @@
         transition: .4s ease;
       }
 
-      .monolith:hover .monolith-num { color: rgba(61,90,254,.32); }
+      .monolith:hover .monolith-num { color: rgba(255,255,255,.35); }
 
       .monolith-bottom { margin-top: auto; }
 
@@ -340,6 +382,122 @@
         color: #f2f2f2;
         letter-spacing: -.02em;
         margin: 0;
+      }
+
+      .summary-section {
+        padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 4vw, 5rem);
+        border-top: 1px solid var(--line);
+      }
+
+      .summary-inner {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .summary-title {
+        font-size: clamp(1.5rem, 3.2vw, 2.6rem);
+        font-weight: 900;
+        color: var(--text);
+        letter-spacing: -.015em;
+        line-height: .95;
+        text-align: center;
+        margin: 0 0 1.2rem;
+      }
+
+      .summary-text {
+        color: #b7b7bf;
+        line-height: 1.75;
+        font-size: clamp(1rem, 1.8vw, 1.1rem);
+        margin: 0;
+      }
+
+      .experience-section {
+        padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 4vw, 5rem);
+        border-top: 1px solid var(--line);
+      }
+
+      .experience-title {
+        font-size: clamp(1.5rem, 3.2vw, 2.6rem);
+        font-weight: 900;
+        color: var(--text);
+        letter-spacing: -.015em;
+        line-height: .95;
+        text-align: center;
+        margin: 0 0 2.5rem;
+      }
+
+      .experience-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .experience-item {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: clamp(1.4rem, 3vw, 2.2rem);
+      }
+
+      .experience-top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: .5rem;
+        margin-bottom: .25rem;
+      }
+
+      .experience-company {
+        font-size: clamp(1.15rem, 2vw, 1.45rem);
+        font-weight: 700;
+        color: #f2f2f2;
+        letter-spacing: -.02em;
+        margin: 0;
+      }
+
+      .experience-dates {
+        color: var(--muted);
+        font-size: .9rem;
+        white-space: nowrap;
+      }
+
+      .experience-role {
+        color: var(--accent);
+        font-weight: 600;
+        font-size: .95rem;
+        margin-bottom: .6rem;
+      }
+
+      .experience-meta {
+        color: #6f6f78;
+        font-size: .92rem;
+        font-style: italic;
+        line-height: 1.5;
+        margin: 0 0 1rem;
+      }
+
+      .experience-bullets {
+        margin: 0;
+        padding-left: 1.1rem;
+        color: #a2a2aa;
+        font-size: .96rem;
+        line-height: 1.65;
+      }
+
+      .experience-bullets li {
+        margin-bottom: .6rem;
+      }
+
+      .experience-bullets li:last-child {
+        margin-bottom: 0;
+      }
+
+      .experience-bullets li::marker {
+        color: #f2f2f2;
       }
 
       .cta {
@@ -410,15 +568,25 @@
         .hero { min-height: 0; }
         .skills-grid { grid-template-columns: repeat(2, 1fr); }
         .col-span-2 { grid-column: span 2; }
+        .col-span-3 { grid-column: span 2; }
       }
 
       @media (max-width: 650px) {
+        .lang-toggle {
+          top: .6rem;
+          right: .6rem;
+        }
+
         .hero-wrap {
           min-height: auto;
           padding: 2.5rem 1rem 3rem;
         }
 
         .rounded-img { width: min(220px, 55vw); }
+
+        .hero-card h1 { font-size: clamp(1.7rem, 8vw, 2.4rem); }
+
+        .hero-role { font-size: 1rem; }
 
         .contact-buttons {
           display: grid;
@@ -432,15 +600,31 @@
         .hero-content { padding: 2rem 1.25rem; }
 
         .hero-title {
-          font-size: clamp(2rem, 10vw, 3rem);
+          font-size: clamp(1.6rem, 9vw, 2.4rem);
           line-height: .9;
         }
+
+        .summary-section { padding: 2rem 1rem; }
+
+        .summary-title { font-size: clamp(1.6rem, 9vw, 2.4rem); line-height: .9; }
+
+        .summary-text { font-size: 1rem; }
 
         .skills-section { padding: 2.5rem .8rem; }
 
         .skills-grid { grid-template-columns: 1fr; gap: .8rem; }
 
         .col-span-2 { grid-column: span 1; }
+        .col-span-3 { grid-column: span 1; }
+
+        .experience-section { padding: 2rem .8rem; }
+
+        .experience-title { font-size: clamp(1.6rem, 9vw, 2.4rem); line-height: .9; margin-bottom: 1.6rem; }
+
+        .experience-item { padding: 1.25rem; }
+        .experience-top { flex-direction: column; align-items: flex-start; gap: .2rem; }
+
+        .experience-bullets { font-size: .9rem; }
 
         .monolith {
           min-height: 280px;
@@ -467,12 +651,17 @@
   </head>
 
   <body>
+    <div class="lang-toggle">
+      <button type="button" id="lang-en" class="active" onclick="setLang('en')">EN</button>
+      <button type="button" id="lang-ru" onclick="setLang('ru')">RU</button>
+    </div>
     <main class="hero-wrap">
       <div class="hero-card">
         <img class="rounded-img" src="img.jpg" alt="Kirill" />
-        <h1 class="fw-light"><strong>Kirill Gishko</strong></h1>
+        <h1 class="fw-light" id="hero-name"><strong>Kirill Gishko</strong></h1>
+        <p class="hero-role" id="hero-role">Mobile QA Engineer</p>
 
-        <p class="hero-text">
+        <p class="hero-text" id="hero-text">
           Hello world!<br />
           I'm glad to welcome you to my website.<br />
           My contacts:
@@ -508,14 +697,25 @@
         </div>
       </div>
     </main>
+
+    <!-- SUMMARY -->
+    <section class="summary-section">
+      <div class="summary-inner">
+        <h2 class="summary-title" id="summary-title">Summary</h2>
+        <p class="summary-text" id="summary-text">
+          Mobile QA Engineer with 4+ years testing native and hybrid iOS and Android applications in high-load fintech and e-commerce products serving 30M+ users. Owned mobile release testing across NFC, push notifications, deep links, biometric authentication and mTLS-secured integrations, paired with backend verification in Kafka, Kubernetes, Tarantool and Redis. Authored and maintained 1,000+ test cases, cut incident triage time by half through release runbooks, and onboarded 3 QA engineers.
+        </p>
+      </div>
+    </section>
+
     <!-- HERO -->
     <section class="hero">
       <div class="hero-bg"></div>
       <div class="hero-grain"></div>
       <div class="hero-content">
-        <h1 class="hero-title">
-          Архитектура
-          <span>компетенций</span>
+        <h1 class="hero-title" id="hero-title">
+          Architecture
+          <span>of Competencies</span>
         </h1>
         <div class="hero-hint">
           <div class="hero-hint-line"></div>
@@ -596,14 +796,14 @@
             <span class="monolith-num">01</span>
           </div>
           <div class="monolith-bottom">
-            <p class="monolith-desc">
-              Тестирование Web/Mobile приложений.<br />
-              Тестирование мобильных приложений на iOS и Android с
-              использованием AndroidStudio.<br />
-              Выполнение функционального, интеграционного, системного и
-              регрессионного тестирования.
+            <p class="monolith-desc" id="desc-01">
+              Web/Mobile application testing.<br />
+              Testing mobile apps on iOS and Android using Android
+              Studio.<br />
+              Performing functional, integration, system, and
+              regression testing.
             </p>
-            <h2 class="monolith-title">Frontend-Тестирование</h2>
+            <h2 class="monolith-title" id="title-01">Frontend Testing</h2>
           </div>
         </div>
 
@@ -613,60 +813,61 @@
             <span class="monolith-num">02</span>
           </div>
           <div class="monolith-bottom">
-            <p class="monolith-desc">
-              Работа с базами данных SQL/NoSQL и Redis.<br />
-              DevTools и Postman для проверки REST API и анализа сетевого
-              трафика.<br />
-              Мониторинг и анализ логов Grafana и Kibana, взаимодействие с
-              Kafka.
+            <p class="monolith-desc" id="desc-02">
+              Working with SQL/NoSQL databases and Redis.<br />
+              Using DevTools and Postman to verify REST APIs and analyze
+              network traffic.<br />
+              Monitoring and log analysis with Grafana and Kibana,
+              working with Kafka.
             </p>
-            <h2 class="monolith-title">Backend & API</h2>
+            <h2 class="monolith-title" id="title-02">Backend & API</h2>
+          </div>
+        </div>
+
+        <div class="monolith col-span-3">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">03</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc" id="desc-08">
+              Functional, integration, regression and acceptance testing on
+              iOS and Android (native and hybrid) · NFC · Push notifications ·
+              Deep links · Biometric authentication · Offline and interrupt
+              handling · Version migration · Device matrix and OS version
+              coverage · Accessibility (VoiceOver, TalkBack) · Localisation ·
+              Adaptive layout and dark mode · Cold and warm start
+            </p>
+            <h2 class="monolith-title" id="title-08">Mobile Testing</h2>
           </div>
         </div>
 
         <div class="monolith">
           <div class="monolith-top">
             <div class="monolith-bar"></div>
-            <span class="monolith-num">03</span>
+            <span class="monolith-num">04</span>
           </div>
           <div class="monolith-bottom">
-            <p class="monolith-desc">
-              Тестирование пользовательских интерфейсов с фокусом на юзабилити,
-              доступность и эстетику. Прототипирование в Figma.
+            <p class="monolith-desc" id="desc-03">
+              Testing user interfaces with a focus on usability,
+              accessibility, and aesthetics. Prototyping in Figma.
             </p>
-            <h2 class="monolith-title">UX/UI Дизайн</h2>
+            <h2 class="monolith-title" id="title-03">UX/UI Design</h2>
           </div>
         </div>
 
         <div class="monolith col-span-2">
           <div class="monolith-top">
             <div class="monolith-bar"></div>
-            <span class="monolith-num">04</span>
-          </div>
-          <div class="monolith-bottom">
-            <p class="monolith-desc">
-              Работа с окружениями Kubernetes и OpenShift.<br />
-              Работа в микросервисной архитектуре, включая работу с
-              микросервисами и микрофронтами.
-            </p>
-            <h2 class="monolith-title">Архитектура</h2>
-          </div>
-        </div>
-
-        <div class="monolith">
-          <div class="monolith-top">
-            <div class="monolith-bar"></div>
             <span class="monolith-num">05</span>
           </div>
           <div class="monolith-bottom">
-            <p class="monolith-desc">
-              Test IT для ведения тестовой документации, Confluence и Notion —
-              для работы с требованиями и управления знаниями.<br />
-              Работа с большим объемом документации.<br />
-              Проведение демонстраций для клиентов.<br />
-              Адаптация новых членов команды.
+            <p class="monolith-desc" id="desc-04">
+              Working with Kubernetes and OpenShift environments.<br />
+              Experience with microservice architecture, including
+              microservices and micro-frontends.
             </p>
-            <h2 class="monolith-title">Ведение тестовой документации</h2>
+            <h2 class="monolith-title" id="title-04">Architecture</h2>
           </div>
         </div>
 
@@ -676,11 +877,15 @@
             <span class="monolith-num">06</span>
           </div>
           <div class="monolith-bottom">
-            <p class="monolith-desc">
-              Agile/Scrum/Kanban методологии, управление техническим долгом,
-              онбоардинг новых членов команды и test-case review процессы.
+            <p class="monolith-desc" id="desc-05">
+              Using Test IT for test documentation, Confluence and
+              Notion for requirements management and knowledge
+              sharing.<br />
+              Working with large volumes of documentation.<br />
+              Running client demos.<br />
+              Onboarding new team members.
             </p>
-            <h2 class="monolith-title">Управление проектами</h2>
+            <h2 class="monolith-title" id="title-05">Test Documentation</h2>
           </div>
         </div>
 
@@ -690,12 +895,72 @@
             <span class="monolith-num">07</span>
           </div>
           <div class="monolith-bottom">
-            <p class="monolith-desc">
-              Работа с IDE VSCode, IntelliJ IDEA во время повышения квалификации
-              внутри команды для автоматизации тестирования на Java/Selenium.
+            <p class="monolith-desc" id="desc-06">
+              Agile/Scrum/Kanban methodologies, technical debt
+              management, onboarding new team members, and test-case
+              review processes.
             </p>
-            <h2 class="monolith-title">Языки программирования/Фреймворки</h2>
+            <h2 class="monolith-title" id="title-06">Project Management</h2>
           </div>
+        </div>
+
+        <div class="monolith">
+          <div class="monolith-top">
+            <div class="monolith-bar"></div>
+            <span class="monolith-num">08</span>
+          </div>
+          <div class="monolith-bottom">
+            <p class="monolith-desc" id="desc-07">
+              Working with VSCode and IntelliJ IDEA IDEs while
+              upskilling within the team for test automation using
+              Java/Selenium.
+            </p>
+            <h2 class="monolith-title" id="title-07">Languages & Frameworks</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="experience-section">
+      <h2 class="experience-title" id="experience-title">Experience</h2>
+      <div class="experience-list">
+        <div class="experience-item">
+          <div class="experience-top">
+            <h3 class="experience-company">VTB Bank</h3>
+            <span class="experience-dates">2024 – 2026</span>
+          </div>
+          <div class="experience-role" id="exp-vtb-role">Mobile QA Engineer</div>
+          <p class="experience-meta" id="exp-vtb-meta">
+            Mobile banking application, 32M customers. Scrum team of 10 with 2 QA engineers; two-week release cycle.
+          </p>
+          <ul class="experience-bullets" id="exp-vtb-bullets">
+            <li>Owned mobile testing for customer profile management, operation confirmation, NFC and integration flows across native and hybrid iOS and Android builds, covering the latest OS versions within a shared device matrix.</li>
+            <li>Ran a 200-case mobile regression suite in 2–3 hours each release cycle with one other QA engineer, sustaining a fortnightly release cadence.</li>
+            <li>Authored and maintained ~1,000 test cases in Test IT, plus NoSQL query templates and requirement-analysis checklists adopted by the team for grooming sessions.</li>
+            <li>Caught a pre-release defect where the API returned UTC instead of local time, preventing downstream integration services from failing to consume customer profile data in production.</li>
+            <li>Tested TLS and mTLS connections including certificate rotation, removal and validation; intercepted and modified device traffic through Charles Proxy and Fiddler.</li>
+            <li>Verified backend behaviour behind mobile flows across Kafka, Kubernetes, OpenShift, Tarantool and Redis; analysed device logs, crashes and product analytics through Kibana and internal platforms.</li>
+            <li>Onboarded 3 QA engineers and authored release runbooks for the support team, cutting incident triage time by approximately 50%.</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <div class="experience-top">
+            <h3 class="experience-company">AliExpress</h3>
+            <span class="experience-dates">2022 – 2023</span>
+          </div>
+          <div class="experience-role" id="exp-ali-role">QA Engineer</div>
+          <p class="experience-meta" id="exp-ali-meta">
+            E-commerce marketplace, 35M+ registered users (15M MAU / 5M DAU). Team of 11 with 2 QA engineers.
+          </p>
+          <ul class="experience-bullets" id="exp-ali-bullets">
+            <li>Tested customer profile, personalisation, banners and interaction history across iOS and Android alongside the web and API layers.</li>
+            <li>Executed a 300-case mobile regression suite in 2–3 hours per release, covering push notifications, deep links, offline behaviour, version migration, accessibility and localisation.</li>
+            <li>Identified a personalisation defect that locked city selection to Moscow, which would have served geo-targeted promotions incorrectly to users nationwide.</li>
+            <li>Logged 30–40 defects per month, 5–10 of them critical, with reproduction steps detailed enough to cut bug reproduction time by roughly 30%.</li>
+            <li>Validated data through SQL and DBeaver, monitored services in Grafana and verified message delivery in Kafka.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -703,9 +968,9 @@
     <!-- CTA FOOTER -->
     <section class="cta">
       <div class="cta-inner">
-        <h2>Открыт для сотрудничества</h2>
-        <a href="mailto:gishko.kirill96@gmail.com" class="cta-btn" aria-label="Связаться с Кириллом по электронной почте">
-          Связаться со мной
+        <h2 id="cta-title">Open for collaboration</h2>
+        <a href="mailto:gishko.kirill96@gmail.com" class="cta-btn" id="cta-btn" aria-label="Email Kirill">
+          <span id="cta-btn-text">Get in touch</span>
           <svg
             width="20"
             height="20"
@@ -722,6 +987,95 @@
         </a>
       </div>
     </section>
+
+    <script>
+      const translations = {
+        en: {
+          "hero-text": "Hello world!<br />I'm glad to welcome you to my website.<br />My contacts:",
+          "hero-name": "<strong>Kirill Gishko</strong>",
+          "hero-title": "Architecture<span>of Competencies</span>",
+          "summary-title": "Summary",
+          "summary-text": "Mobile QA Engineer with 4+ years testing native and hybrid iOS and Android applications in high-load fintech and e-commerce products serving 30M+ users. Owned mobile release testing across NFC, push notifications, deep links, biometric authentication and mTLS-secured integrations, paired with backend verification in Kafka, Kubernetes, Tarantool and Redis. Authored and maintained 1,000+ test cases, cut incident triage time by half through release runbooks, and onboarded 3 QA engineers.",
+          "desc-01": "Web/Mobile application testing.<br />Testing mobile apps on iOS and Android using Android Studio.<br />Performing functional, integration, system, and regression testing.",
+          "title-01": "Frontend Testing",
+          "desc-02": "Working with SQL/NoSQL databases and Redis.<br />Using DevTools and Postman to verify REST APIs and analyze network traffic.<br />Monitoring and log analysis with Grafana and Kibana, working with Kafka.",
+          "title-02": "Backend & API",
+          "desc-03": "Testing user interfaces with a focus on usability, accessibility, and aesthetics. Prototyping in Figma.",
+          "title-03": "UX/UI Design",
+          "desc-04": "Working with Kubernetes and OpenShift environments.<br />Experience with microservice architecture, including microservices and micro-frontends.",
+          "title-04": "Architecture",
+          "desc-05": "Using Test IT for test documentation, Confluence and Notion for requirements management and knowledge sharing.<br />Working with large volumes of documentation.<br />Running client demos.<br />Onboarding new team members.",
+          "title-05": "Test Documentation",
+          "desc-06": "Agile/Scrum/Kanban methodologies, technical debt management, onboarding new team members, and test-case review processes.",
+          "title-06": "Project Management",
+          "desc-07": "Working with VSCode and IntelliJ IDEA IDEs while upskilling within the team for test automation using Java/Selenium.",
+          "title-07": "Languages & Frameworks",
+          "desc-08": "Functional, integration, regression and acceptance testing on iOS and Android (native and hybrid) · NFC · Push notifications · Deep links · Biometric authentication · Offline and interrupt handling · Version migration · Device matrix and OS version coverage · Accessibility (VoiceOver, TalkBack) · Localisation · Adaptive layout and dark mode · Cold and warm start",
+          "title-08": "Mobile Testing",
+          "experience-title": "Experience",
+          "exp-vtb-role": "Mobile QA Engineer",
+          "exp-vtb-meta": "Mobile banking application, 32M customers. Scrum team of 10 with 2 QA engineers; two-week release cycle.",
+          "exp-vtb-bullets": "<li>Owned mobile testing for customer profile management, operation confirmation, NFC and integration flows across native and hybrid iOS and Android builds, covering the latest OS versions within a shared device matrix.</li><li>Ran a 200-case mobile regression suite in 2–3 hours each release cycle with one other QA engineer, sustaining a fortnightly release cadence.</li><li>Authored and maintained ~1,000 test cases in Test IT, plus NoSQL query templates and requirement-analysis checklists adopted by the team for grooming sessions.</li><li>Caught a pre-release defect where the API returned UTC instead of local time, preventing downstream integration services from failing to consume customer profile data in production.</li><li>Tested TLS and mTLS connections including certificate rotation, removal and validation; intercepted and modified device traffic through Charles Proxy and Fiddler.</li><li>Verified backend behaviour behind mobile flows across Kafka, Kubernetes, OpenShift, Tarantool and Redis; analysed device logs, crashes and product analytics through Kibana and internal platforms.</li><li>Onboarded 3 QA engineers and authored release runbooks for the support team, cutting incident triage time by approximately 50%.</li>",
+          "exp-ali-role": "QA Engineer",
+          "exp-ali-meta": "E-commerce marketplace, 35M+ registered users (15M MAU / 5M DAU). Team of 11 with 2 QA engineers.",
+          "exp-ali-bullets": "<li>Tested customer profile, personalisation, banners and interaction history across iOS and Android alongside the web and API layers.</li><li>Executed a 300-case mobile regression suite in 2–3 hours per release, covering push notifications, deep links, offline behaviour, version migration, accessibility and localisation.</li><li>Identified a personalisation defect that locked city selection to Moscow, which would have served geo-targeted promotions incorrectly to users nationwide.</li><li>Logged 30–40 defects per month, 5–10 of them critical, with reproduction steps detailed enough to cut bug reproduction time by roughly 30%.</li><li>Validated data through SQL and DBeaver, monitored services in Grafana and verified message delivery in Kafka.</li>",
+          "cta-title": "Open for collaboration",
+          "cta-btn-text": "Get in touch",
+          "cta-btn-aria": "Email Kirill"
+        },
+        ru: {
+          "hero-text": "Hello world!<br />Рад приветствовать вас на моём сайте.<br />Мои контакты:",
+          "hero-name": "<strong>Кирилл Гишко</strong>",
+          "hero-title": "Архитектура<span>компетенций</span>",
+          "summary-title": "О себе",
+          "summary-text": "Mobile QA Engineer с опытом более 4 лет в тестировании нативных и гибридных приложений для iOS и Android в высоконагруженных финтех- и e-commerce продуктах с аудиторией более 30 млн пользователей. Отвечал за мобильное релизное тестирование NFC, push-уведомлений, deep links, биометрической аутентификации и mTLS-защищённых интеграций, совмещая это с проверкой бэкенда в Kafka, Kubernetes, Tarantool и Redis. Написал и поддерживал более 1000 тест-кейсов, сократил время триажа инцидентов вдвое благодаря релизным ранбукам и адаптировал 3 QA-инженеров.",
+          "desc-01": "Тестирование Web/Mobile приложений.<br />Тестирование мобильных приложений на iOS и Android с использованием AndroidStudio.<br />Выполнение функционального, интеграционного, системного и регрессионного тестирования.",
+          "title-01": "Frontend-Тестирование",
+          "desc-02": "Работа с базами данных SQL/NoSQL и Redis.<br />DevTools и Postman для проверки REST API и анализа сетевого трафика.<br />Мониторинг и анализ логов Grafana и Kibana, взаимодействие с Kafka.",
+          "title-02": "Backend & API",
+          "desc-03": "Тестирование пользовательских интерфейсов с фокусом на юзабилити, доступность и эстетику. Прототипирование в Figma.",
+          "title-03": "UX/UI Дизайн",
+          "desc-04": "Работа с окружениями Kubernetes и OpenShift.<br />Работа в микросервисной архитектуре, включая работу с микросервисами и микрофронтами.",
+          "title-04": "Архитектура",
+          "desc-05": "Test IT для ведения тестовой документации, Confluence и Notion — для работы с требованиями и управления знаниями.<br />Работа с большим объемом документации.<br />Проведение демонстраций для клиентов.<br />Адаптация новых членов команды.",
+          "title-05": "Ведение тестовой документации",
+          "desc-06": "Agile/Scrum/Kanban методологии, управление техническим долгом, онбоардинг новых членов команды и test-case review процессы.",
+          "title-06": "Управление проектами",
+          "desc-07": "Работа с IDE VSCode, IntelliJ IDEA во время повышения квалификации внутри команды для автоматизации тестирования на Java/Selenium.",
+          "title-07": "Языки программирования/Фреймворки",
+          "desc-08": "Функциональное, интеграционное, регрессионное и приёмочное тестирование на iOS и Android (нативные и гибридные приложения) · NFC · Push-уведомления · Deep links · Биометрическая аутентификация · Обработка офлайн-режима и прерываний · Миграция версий · Покрытие матрицы устройств и версий ОС · Доступность (VoiceOver, TalkBack) · Локализация · Адаптивная вёрстка и тёмная тема · Холодный и тёплый старт",
+          "title-08": "Мобильное тестирование",
+          "experience-title": "Опыт работы",
+          "exp-vtb-role": "Mobile QA Engineer",
+          "exp-vtb-meta": "Мобильное банковское приложение, 32 млн клиентов. Scrum-команда из 10 человек, включая 2 QA-инженеров; двухнедельный релизный цикл.",
+          "exp-vtb-bullets": "<li>Отвечал за мобильное тестирование управления профилем клиента, подтверждения операций, NFC и интеграционных потоков в нативных и гибридных сборках iOS и Android, включая последние версии ОС в рамках общей матрицы устройств.</li><li>Проводил регрессионный набор из 200 кейсов за 2–3 часа в каждом релизном цикле совместно с ещё одним QA-инженером, поддерживая двухнедельный релизный цикл.</li><li>Написал и поддерживал ~1000 тест-кейсов в Test IT, а также шаблоны NoSQL-запросов и чек-листы анализа требований, принятые командой для проведения грумингов.</li><li>Обнаружил дефект перед релизом: API возвращал время в UTC вместо локального, что могло привести к сбоям при получении данных профиля клиента нижестоящими интеграционными сервисами в продакшене.</li><li>Тестировал TLS и mTLS-соединения, включая ротацию, удаление и валидацию сертификатов; перехватывал и модифицировал трафик устройства через Charles Proxy и Fiddler.</li><li>Проверял поведение бэкенда за мобильными сценариями в Kafka, Kubernetes, OpenShift, Tarantool и Redis; анализировал логи устройств, краши и продуктовую аналитику через Kibana и внутренние платформы.</li><li>Адаптировал 3 QA-инженеров и написал ранбуки для команды поддержки, сократив время триажа инцидентов примерно на 50%.</li>",
+          "exp-ali-role": "QA Engineer",
+          "exp-ali-meta": "Маркетплейс электронной коммерции, более 35 млн зарегистрированных пользователей (15 млн MAU / 5 млн DAU). Команда из 11 человек, включая 2 QA-инженеров.",
+          "exp-ali-bullets": "<li>Тестировал профиль клиента, персонализацию, баннеры и историю взаимодействий на iOS и Android, а также веб- и API-слои.</li><li>Выполнял регрессионный набор из 300 кейсов за 2–3 часа на релиз, охватывающий push-уведомления, deep links, офлайн-поведение, миграцию версий, доступность и локализацию.</li><li>Обнаружил дефект персонализации, из-за которого выбор города был жёстко привязан к Москве, что привело бы к некорректной выдаче гео-таргетированных промоакций пользователям по всей стране.</li><li>Регистрировал 30–40 дефектов в месяц, 5–10 из них критических, с настолько подробными шагами воспроизведения, что это сократило время воспроизведения багов примерно на 30%.</li><li>Проверял данные через SQL и DBeaver, мониторил сервисы в Grafana и проверял доставку сообщений в Kafka.</li>",
+          "cta-title": "Открыт для сотрудничества",
+          "cta-btn-text": "Связаться со мной",
+          "cta-btn-aria": "Связаться с Кириллом по электронной почте"
+        }
+      };
+
+      function setLang(lang) {
+        const dict = translations[lang];
+        Object.keys(dict).forEach((key) => {
+          if (key === "cta-btn-aria") {
+            document.getElementById("cta-btn").setAttribute("aria-label", dict[key]);
+            return;
+          }
+          const el = document.getElementById(key);
+          if (el) el.innerHTML = dict[key];
+        });
+        document.getElementById("lang-en").classList.toggle("active", lang === "en");
+        document.getElementById("lang-ru").classList.toggle("active", lang === "ru");
+        document.documentElement.setAttribute("lang", lang);
+        localStorage.setItem("site-lang", lang);
+      }
+
+      setLang(localStorage.getItem("site-lang") || "en");
+    </script>
 
     <script>
       const observer = new IntersectionObserver(
